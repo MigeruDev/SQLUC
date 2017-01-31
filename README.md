@@ -1,0 +1,2 @@
+# SQLUC
+Proyecto de Software de la asignatura Programación III  y Análisis II de la carrera Ing. en Sistemas de la Facultad de Ingeniería de la Universidad de Cuenca.  El siguiente proyecto (Java Netbeans), cuenta con una interfaz gráfica para la gestión de una base de datos, utilizando archivos de texto.  Se utilizaron patrones de diseño y programación por capas.   Puede encontrar información más detallada del proyecto, en el siguiente enlace: https://www.emaze.com/@ATLQFOWZ/sqluc
