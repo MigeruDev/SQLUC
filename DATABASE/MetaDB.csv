@@ -1,0 +1,8 @@
+Exist,tableName,tableRecord,tableField,tableKey,tableLength
+1,Prueba1,5  *,campo1                       *-campo2                       *-campo3                       *,campo2,30
+1,Prueba2,2  *,campo1                       *-campo2                       *-nuevoCampo                   *,campo2,30
+1,Prueba3,6  *,campo1             *-campo2             *,campo2,20
+1,ListaCurso,0  *,Ci                 *-Nombre             *-Apellido           *-Curso              *,CLastName           * *,id                 *-nombre             LastName           * *,id,20
+0,Testing,1  *,id                 *-nombre             *-apellido           *,id,20
+0,Testing,1  *,id                 *-nombre             *-apellido           *,id,20
+0,Testing,1  *,id                 *-nombre             *-apellido           *,id,20
