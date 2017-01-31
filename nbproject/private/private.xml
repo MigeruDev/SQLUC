@@ -5,9 +5,11 @@
         <group>
             <file>file:/D:/Documentos/Ucuenca/4toCiclo/PROGRALISIS/SQLUC/src/sqlProcess/regex/ContextProxy.java</file>
             <file>file:/D:/Documentos/Ucuenca/4toCiclo/PROGRALISIS/SQLUC/test/sqlProcess/regex/ContextProxyTest.java</file>
+            <file>file:/D:/Documentos/Ucuenca/4toCiclo/PROGRALISIS/SQLUC/src/sqlProcess/regex/Context.java</file>
             <file>file:/D:/Documentos/Ucuenca/4toCiclo/PROGRALISIS/SQLUC/src/sqlGUI/frmSql.java</file>
-            <file>file:/D:/Documentos/Ucuenca/4toCiclo/PROGRALISIS/SQLUC/src/sqlProcess/manager/OpTable.java</file>
+            <file>file:/D:/Documentos/Ucuenca/4toCiclo/PROGRALISIS/SQLUC/src/sqlProcess/command/CRUD.java</file>
             <file>file:/D:/Documentos/Ucuenca/4toCiclo/PROGRALISIS/SQLUC/src/sqlDB/MetaDB.java</file>
+            <file>file:/D:/Documentos/Ucuenca/4toCiclo/PROGRALISIS/SQLUC/src/sqlProcess/command/Create.java</file>
         </group>
     </open-files>
 </project-private>

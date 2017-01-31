@@ -43,7 +43,7 @@ public class OpTable implements Operation {
     {
         String [] info = command.split(" ");
         int length = Integer.parseInt(info[info.length-1]); // Longitud de los campos
-        if (length<=50)
+        if (length<=50 && length>0)
         {
             List<String> campos = new ArrayList<>(); //Contiene los campos
             for (int i=4;i<info.length-4;i++){
@@ -62,15 +62,37 @@ public class OpTable implements Operation {
                                 "Tabla existente", 
                                 JOptionPane.WARNING_MESSAGE);
                 }else{
+                    int count=0;
+                    boolean repeat = true;
+                    List<String> auxCampos = campos;
+                    for (String aux: auxCampos){
+                        count=0;
+                        for(String campo: campos){
+                            if (aux.equals(campo))
+                                count++;
+                        }
+                        if (count>1){
+                            repeat=false;
+                            break;
+                        }
+                    }
+                    
                     if (campos.contains(clave))
                     {
-                        metaDB.createTable(name, campos, clave, length);
-                        File table = new File(ruta.concat(name).concat(".csv"));
-                        CsvWriter newTable = new CsvWriter(new FileWriter(table),',');
-                        for(String campo: campos)
-                            newTable.write(String.format("%1$-"+(length-1)+"s", campo).concat("*"));
-                        newTable.endRecord();
-                        newTable.close();
+                        if (repeat)
+                        {
+                            metaDB.createTable(name, campos, clave, length);
+                            File table = new File(ruta.concat(name).concat(".csv"));
+                            CsvWriter newTable = new CsvWriter(new FileWriter(table),',');
+                            for(String campo: campos)
+                                newTable.write(String.format("%1$-"+(length-1)+"s", campo).concat("*"));
+                            newTable.endRecord();
+                            newTable.close();
+                        }else 
+                            JOptionPane.showMessageDialog(null, 
+                                "Existen campos repetidos", 
+                                "Campos repetidos", 
+                                JOptionPane.WARNING_MESSAGE);
                     }else
                         JOptionPane.showMessageDialog(null, 
                                 "El campo clave no existe", 
@@ -95,9 +117,16 @@ public class OpTable implements Operation {
         String name = command.split(" ")[2]; // Nombre de la tabla
         try {
             if (metaDB.existTableName(name)){
-                File table = new File(ruta.concat(name).concat(".csv"));
-                table.delete();
-                metaDB.deleteTable(name);
+                if (metaDB.isEditable(name)){
+                    File table = new File(ruta.concat(name).concat(".csv"));
+                    table.delete();
+                    metaDB.deleteTable(name);
+                }else
+                    JOptionPane.showMessageDialog(null, 
+                                    "No se puede eliminar las tablas"
+                                            + " que contienen registros.", 
+                                    "Tabla con registros", 
+                                    JOptionPane.WARNING_MESSAGE);
             }else
                 JOptionPane.showMessageDialog(null, 
                                 "La tabla no existe", 

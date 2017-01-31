@@ -141,7 +141,7 @@ public class frmSintaxis extends javax.swing.JFrame {
             ListaCurso.getColumnModel().getColumn(2).setResizable(false);
         }
 
-        jLabel6.setText("CREAR TABLA ListaCurso CAMPOS Cedula,Nombre,Apellido CLAVE Cedula    LONGITUD 12");
+        jLabel6.setText("CREAR TABLA ListaCurso CAMPOS Cedula, Nombre, Apellido CLAVE Cedula    LONGITUD 12");
 
         jLabel7.setText("MODIFICAR TABLA nombre_tabla CAMPO nombre_campo POR nombre_campo");
 
@@ -263,9 +263,9 @@ public class frmSintaxis extends javax.swing.JFrame {
         jLabel15.setForeground(new java.awt.Color(204, 102, 0));
         jLabel15.setText("ELIMINAR");
 
-        jLabel16.setText("CREAR REGISTRO nombre_tabla VALOR vCampo1 , vCampo2 ,... , vCampoN ");
+        jLabel16.setText("CREAR REGISTRO nombre_tabla VALOR vCampo1, vCampo2, ..., vCampoN ");
 
-        jLabel18.setText("CREAR REGISTRO ListaCurso VALOR 0106418534,Benito,Farfan ");
+        jLabel18.setText("CREAR REGISTRO ListaCurso VALOR 0106418534, Benito, Farfan ");
 
         jLabel19.setText("MODIFICAR REGISTRO nombre_tabla CLAVE valorCampoClave CAMPO campo POR valor_campo_nuevo ");
 
@@ -339,13 +339,13 @@ public class frmSintaxis extends javax.swing.JFrame {
         jLabel23.setForeground(new java.awt.Color(204, 102, 0));
         jLabel23.setText("JOIN");
 
-        jLabel25.setText("SELECCIONAR DE nombre_tabla DONDE nombre_campo = “Algo”");
+        jLabel25.setText("SELECCIONAR DE nombre_tabla DONDE nombre_campo = Algo");
 
-        jLabel26.setText("SELECCIONAR DE ListaCurso  DONDE Nombre = “Patricio”");
+        jLabel26.setText("SELECCIONAR DE ListaCurso  DONDE Nombre = Patricio");
 
-        jLabel27.setText("UNIR nombre_tabla1, nombre_tabla2 POR nombre_campo=”Algo\"");
+        jLabel27.setText("UNIR nombre_tabla1, nombre_tabla2 POR nombre_campo = Algo");
 
-        jLabel28.setText("UNIR ListaCurso, ListaFacultar POR nombre=”Patricio\"");
+        jLabel28.setText("UNIR ListaCurso, ListaFacultar POR nombre = Patricio");
 
         jLabel29.setForeground(new java.awt.Color(255, 0, 0));
         jLabel29.setText("Muestra los registros que tengan ese valor en ese campo.");
@@ -372,7 +372,7 @@ public class frmSintaxis extends javax.swing.JFrame {
                     .addGroup(jPSelectJoinLayout.createSequentialGroup()
                         .addGap(245, 245, 245)
                         .addComponent(jLabel23)))
-                .addContainerGap(224, Short.MAX_VALUE))
+                .addContainerGap(226, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPSelectJoinLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addGroup(jPSelectJoinLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

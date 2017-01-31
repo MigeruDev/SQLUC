@@ -5,14 +5,28 @@
  */
 package sqlGUI;
 
+import com.csvreader.CsvReader;
+import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextArea;
 import javax.swing.table.DefaultTableModel;
 import sqlDB.MetaDB;
 import sqlProcess.regex.ContextProxy;
@@ -26,6 +40,11 @@ public class frmSql extends javax.swing.JFrame {
     MetaDB metaDB;
     DefaultTableModel model;
     ContextProxy context;
+    List<String> history = new ArrayList<>();
+    JTextArea historial = new JTextArea();
+    JScrollPane jScrollPane = new JScrollPane();
+    JPanel panel = new JPanel();
+    int count = 0;
  
     public frmSql() {
         initComponents();
@@ -45,6 +64,31 @@ public class frmSql extends javax.swing.JFrame {
         } catch (IOException ex) {
             Logger.getLogger(frmSql.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        historial.setEditable(false);
+        historial.setPreferredSize(new Dimension(500,300));
+        historial.setText("");
+        
+        jScrollPane.setViewportView(historial);                    
+        jScrollPane.setPreferredSize(new Dimension(510, 320 ));
+        
+        panel.setPreferredSize(new Dimension(510 , 320));
+        panel.add(jScrollPane);  
+        
+        Action action = new AbstractAction()
+        {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {       context.request(codeLine.getText());
+                    fillTable();
+                    history.add(codeLine.getText());
+                    historial.append(codeLine.getText()+"\n\n");
+                    count=history.size();
+            }
+        };
+        codeLine.addActionListener(action);
+        Execute.addActionListener(action);
+        
     }
 
     @SuppressWarnings("unchecked")
@@ -95,19 +139,25 @@ public class frmSql extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        metaTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                metaTableMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(metaTable);
 
         Execute.setFont(new java.awt.Font("Khmer UI", 1, 10)); // NOI18N
         Execute.setText("META DB");
-        Execute.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ExecuteActionPerformed(evt);
-            }
-        });
 
+        codeLine.setName(""); // NOI18N
         codeLine.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 codeLineActionPerformed(evt);
+            }
+        });
+        codeLine.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                codeLineKeyPressed(evt);
             }
         });
 
@@ -132,6 +182,11 @@ public class frmSql extends javax.swing.JFrame {
 
         menuHistorial.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagesGUI/listado.fw.png"))); // NOI18N
         menuHistorial.setText("Historial");
+        menuHistorial.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                menuHistorialMouseClicked(evt);
+            }
+        });
         menuPrincipal.add(menuHistorial);
 
         menuInformacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImagesGUI/buscar.fw.png"))); // NOI18N
@@ -205,21 +260,97 @@ public class frmSql extends javax.swing.JFrame {
         frmInf.setVisible(true); 
     }//GEN-LAST:event_menuInformacionMouseClicked
 
-    private void ExecuteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExecuteActionPerformed
-        context.request(codeLine.getText());
-        fillTable();
-    }//GEN-LAST:event_ExecuteActionPerformed
-
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         fillTable();
     }//GEN-LAST:event_formWindowOpened
+
+    private void metaTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_metaTableMouseClicked
+        DefaultTableModel tm = (DefaultTableModel) metaTable.getModel(); 
+ 
+        String tableName=String.valueOf(tm.getValueAt(metaTable.getSelectedRow(),0));
+        File tablaFile = new File("DATABASE\\".concat(tableName).concat(".csv"));
+        try {
+            CsvReader tablaAux = new CsvReader(new FileReader(tablaFile),',');
+            tablaAux.readHeaders();            
+            String[] cabeceras = tablaAux.getHeaders();
+            List<String[]> records = new ArrayList<>();
+            for(int i=0;i<cabeceras.length;i++){
+                cabeceras[i]=cabeceras[i].substring(0,cabeceras[i].length()-1).trim();
+            }
+            while(tablaAux.readRecord()){
+                String []aux = tablaAux.getValues();
+                for(int i=0;i<aux.length;i++){
+                    aux[i]=aux[i].substring(0,aux[i].length()-1).trim();
+                }
+                records.add(aux);
+            }
+            tablaAux.close();
+            
+            DefaultTableModel model = new DefaultTableModel(null,cabeceras){
+                            @Override
+                            public boolean isCellEditable(int row, int col){   //impedimos que las celdas sean modificables
+                                return false;
+                            }
+                        };
+                        
+            for(String []aux: records){
+                model.addRow(aux);
+            }
+                        
+                        JTable tabla = new JTable();
+                        tabla.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+                        tabla.setFont(new java.awt.Font("Verdana", 0, 11));
+                        tabla.setModel(model);
+                        tabla.setEnabled(false);
+                        JScrollPane jScrollPane = new JScrollPane();
+                        jScrollPane.setViewportView(tabla);                    
+                        jScrollPane.setPreferredSize(new Dimension(500, 100 ));
+                        JPanel panel = new JPanel();
+                        panel.setPreferredSize(new Dimension(500 , 140));
+                        JLabel jLabel1 = new JLabel();
+                        jLabel1.setFont(new java.awt.Font("Verdana", 0, 12));
+                        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+                        jLabel1.setText("Datos de la tabla "+tableName);
+                        panel.add(jLabel1);
+                        panel.add(jScrollPane);
+
+                        JOptionPane.showMessageDialog(null, panel, "Tabla "+tableName,1);
+            
+            
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(frmSql.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(frmSql.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_metaTableMouseClicked
+
+    private void menuHistorialMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuHistorialMouseClicked
+                      
+        JOptionPane.showMessageDialog(null, panel, "Historial",1);        
+    }//GEN-LAST:event_menuHistorialMouseClicked
+
+    private void codeLineKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_codeLineKeyPressed
+        if(evt.getKeyCode()==KeyEvent.VK_UP){
+            if(count>0&&!history.isEmpty()){
+                count--;
+            codeLine.setText(history.get(count));
+            }
+        }
+        if(evt.getKeyCode()==KeyEvent.VK_DOWN){
+            if(count<history.size()-1&&!history.isEmpty()){
+                count++;
+            codeLine.setText(history.get(count));
+            }
+        }
+    }//GEN-LAST:event_codeLineKeyPressed
 
     private void fillTable(){
         String titulos[] = {"Nombre Tabla","No. Registros","Campos",
             "Campo Clave","Longitud Campo"};
         String registro[] = new String[5];
         
-        model = new DefaultTableModel(null, titulos){ //Se crea el modelo de la tabla
+        model = new DefaultTableModel(null, titulos){ //Se crea el modelo de la tablaFile
             @Override
             public boolean isCellEditable(int row, int col){   //impedimos que las celdas sean modificables
                 return false;

@@ -285,7 +285,7 @@
         </Container>
         <Component class="javax.swing.JLabel" name="jLabel6">
           <Properties>
-            <Property name="text" type="java.lang.String" value="CREAR TABLA ListaCurso CAMPOS Cedula,Nombre,Apellido CLAVE Cedula    LONGITUD 12"/>
+            <Property name="text" type="java.lang.String" value="CREAR TABLA ListaCurso CAMPOS Cedula, Nombre, Apellido CLAVE Cedula    LONGITUD 12"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel7">
@@ -488,12 +488,12 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel16">
           <Properties>
-            <Property name="text" type="java.lang.String" value="CREAR REGISTRO nombre_tabla VALOR vCampo1 , vCampo2 ,... , vCampoN "/>
+            <Property name="text" type="java.lang.String" value="CREAR REGISTRO nombre_tabla VALOR vCampo1, vCampo2, ..., vCampoN "/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel18">
           <Properties>
-            <Property name="text" type="java.lang.String" value="CREAR REGISTRO ListaCurso VALOR 0106418534,Benito,Farfan "/>
+            <Property name="text" type="java.lang.String" value="CREAR REGISTRO ListaCurso VALOR 0106418534, Benito, Farfan "/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel19">
@@ -567,7 +567,7 @@
                           <Component id="jLabel23" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace pref="224" max="32767" attributes="0"/>
+                  <EmptySpace pref="226" max="32767" attributes="0"/>
               </Group>
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
@@ -632,22 +632,22 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel25">
           <Properties>
-            <Property name="text" type="java.lang.String" value="SELECCIONAR DE nombre_tabla DONDE nombre_campo = &#x201c;Algo&#x201d;"/>
+            <Property name="text" type="java.lang.String" value="SELECCIONAR DE nombre_tabla DONDE nombre_campo = Algo"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel26">
           <Properties>
-            <Property name="text" type="java.lang.String" value="SELECCIONAR DE ListaCurso  DONDE Nombre = &#x201c;Patricio&#x201d;"/>
+            <Property name="text" type="java.lang.String" value="SELECCIONAR DE ListaCurso  DONDE Nombre = Patricio"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel27">
           <Properties>
-            <Property name="text" type="java.lang.String" value="UNIR nombre_tabla1, nombre_tabla2 POR nombre_campo=&#x201d;Algo&quot;"/>
+            <Property name="text" type="java.lang.String" value="UNIR nombre_tabla1, nombre_tabla2 POR nombre_campo = Algo"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel28">
           <Properties>
-            <Property name="text" type="java.lang.String" value="UNIR ListaCurso, ListaFacultar POR nombre=&#x201d;Patricio&quot;"/>
+            <Property name="text" type="java.lang.String" value="UNIR ListaCurso, ListaFacultar POR nombre = Patricio"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel29">
